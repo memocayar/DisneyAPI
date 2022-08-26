@@ -1,6 +1,7 @@
 package com.disney.disney.controller;
 
 import com.disney.disney.dto.MovieDTO;
+import com.disney.disney.service.CharacterService;
 import com.disney.disney.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private CharacterService characterService;
+
     @GetMapping
     public ResponseEntity<List<MovieDTO>> getAll(){
         List<MovieDTO> movies = movieService.getAllMovies();
@@ -26,5 +30,17 @@ public class MovieController {
     public ResponseEntity<MovieDTO> save(@RequestBody MovieDTO movie){
         MovieDTO movieSaved = movieService.save(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSaved);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        movieService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieDTO> update(@RequestBody MovieDTO movieDTO, @PathVariable Long id){
+        MovieDTO result = movieService.update(movieDTO, id);
+        return ResponseEntity.ok().body(result);
     }
 }

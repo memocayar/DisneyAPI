@@ -2,6 +2,7 @@ package com.disney.disney.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,10 +22,10 @@ public class GenreEntity implements Serializable {
 
     private String image;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<MovieEntity> movies = new ArrayList<>();
 
-    private boolean delete;
+    private boolean delete = Boolean.FALSE;
 
     public GenreEntity() {
     }
