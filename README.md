@@ -1,5 +1,4 @@
 ## DisneyAPI
-Disney Java Spring Boot API
 
 
 #### Herramientas y tecnologías usadas🛠
